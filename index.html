@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Для Моей Любимой ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <!-- Canvas background for floating romantic hearts -->
+  <canvas id="canvas-hearts"></canvas>
+
+  <!-- Control panel toggle button -->
+  <button id="settings-toggle" title="Настроить имена и дату">⚙️ Настройки</button>
+
+  <!-- Settings Modal for Customization -->
+  <div id="settings-modal" class="modal hidden">
+    <div class="modal-content glass-card">
+      <button class="close-btn" id="close-settings">&times;</button>
+      <h2>💖 Персонализация сайта</h2>
+      <p class="settings-desc">Настройте имена и дату вашей первой встречи или начала отношений:</p>
+
+      <div class="form-group">
+        <label for="input-her-name">Имя любимой:</label>
+        <input type="text" id="input-her-name" value="Моя Любимая" placeholder="Например, Алена">
+      </div>
+
+      <div class="form-group">
+        <label for="input-his-name">Твоё имя:</label>
+        <input type="text" id="input-his-name" value="Твой Зая" placeholder="Например, Александр">
+      </div>
+
+      <div class="form-group">
+        <label for="input-start-date">Дата начала отношений:</label>
+        <input type="date" id="input-start-date" value="2023-02-14">
+      </div>
+
+      <div class="form-group">
+        <label for="input-love-letter">Текст любовного письма:</label>
+        <textarea id="input-love-letter" rows="5" placeholder="Напиши своё самое искреннее признание...">Ты — самое лучшее, что случалось со мной в жизни. Твоя улыбка освещает даже самые пасмурные дни, а твои глаза излучают тепло и доброту. Спасибо за каждую секунду, проведённую вместе. Я люблю тебя всё сильнее с каждым днём! ❤️</textarea>
+      </div>
+
+      <button id="save-settings" class="btn-primary">Сохранить изменения 💌</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Main Hero Header -->
+    <header class="hero section">
+      <div class="heart-pulse-container">
+        <div class="big-heart">❤️</div>
+      </div>
+      <h1 class="main-title">Для <span id="display-her-name">Моей Любимой</span></h1>
+      <p class="subtitle">Ты — всё моё счастье и мой самый любимый человек на свете 💕</p>
+      <p class="author-tag">От: <span id="display-his-name">Твоего Заи</span></p>
+    </header>
+
+    <!-- Love Counter Section -->
+    <section class="counter-section glass-card section">
+      <h2>⏳ Мы счастливы вместе уже:</h2>
+      <div class="timer-grid">
+        <div class="time-block">
+          <span id="timer-days">000</span>
+          <p>дней</p>
+        </div>
+        <div class="time-block">
+          <span id="timer-hours">00</span>
+          <p>часов</p>
+        </div>
+        <div class="time-block">
+          <span id="timer-minutes">00</span>
+          <p>минут</p>
+        </div>
+        <div class="time-block">
+          <span id="timer-seconds">00</span>
+          <p>секунд</p>
+        </div>
+      </div>
+      <p class="timer-footnote">...и эта любовь растёт с каждым мгновением! ✨</p>
+    </section>
+
+    <!-- Love Letter Envelope Section -->
+    <section class="letter-section section">
+      <div class="envelope-wrapper" id="envelope">
+        <div class="envelope">
+          <div class="front flap"></div>
+          <div class="front pocket"></div>
+          <div class="letter">
+            <div class="letter-preview">
+              <p>💌 Нажми, чтобы открыть письмо...</p>
+            </div>
+          </div>
+          <div class="heart-seal">💖</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Letter Full Modal -->
+    <div id="letter-modal" class="modal hidden">
+      <div class="modal-content glass-card letter-paper">
+        <button class="close-btn" id="close-letter">&times;</button>
+        <div class="letter-header">
+          <span class="stamp">❤️ Love</span>
+          <h3>Моё главное признание для тебя</h3>
+        </div>
+        <div class="letter-body">
+          <p id="display-letter-text">
+            Ты — самое лучшее, что случалось со мной в жизни. Твоя улыбка освещает даже самые пасмурные дни, а твои глаза излучают тепло и доброту. Спасибо за каждую секунду, проведённую вместе. Я люблю тебя всё сильнее с каждым днём! ❤️
+          </p>
+        </div>
+        <div class="letter-footer">
+          <p class="handwriting">Навсегда твой, <span id="letter-his-name">Твой Зая</span> ✨</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 Reasons Why I Love You Section -->
+    <section class="reasons-section section">
+      <h2 class="section-title">🌹 Причины, почему я тебя люблю</h2>
+      <p class="section-subtitle">Переверни карточки, чтобы узнать секреты моего сердца:</p>
+
+      <div class="cards-grid" id="cards-grid">
+        <!-- Cards injected dynamically or template structured -->
+      </div>
+    </section>
+
+    <!-- Interactive Compliment Generator -->
+    <section class="compliment-section glass-card section">
+      <h2>✨ Генератор Любви и Комплиментов</h2>
+      <p>Когда тебе захочется улыбнуться, просто нажми на кнопку ниже!</p>
+      <div class="compliment-box" id="compliment-text">
+        «Ты делаешь этот мир бесконечно прекраснее просто тем, что ты в нём есть!»
+      </div>
+      <button id="btn-next-compliment" class="btn-primary pulse-btn">Получить комплимент 💖</button>
+    </section>
+
+    <!-- Interactive Playful Quiz Section -->
+    <section class="quiz-section glass-card section">
+      <h2>❓ Самый Главный Вопрос</h2>
+      <p class="quiz-question" id="quiz-title">Будешь ли ты моей валентинкой навсегда? 💍</p>
+
+      <div class="quiz-buttons">
+        <button id="btn-yes" class="btn-primary btn-large">Конечно ДА! 😍</button>
+        <button id="btn-no" class="btn-secondary btn-large">Нет 😜</button>
+      </div>
+
+      <div id="quiz-result" class="quiz-result hidden">
+        <h3>УРААА! 🎉🥰❤️</h3>
+        <p>Я самый счастливый человек на свете! Обещаю оберегать, любить и делать тебя счастливой каждый день! 💋</p>
+      </div>
+    </section>
+
+    <!-- Romantic Photo Memories Grid -->
+    <section class="memories-section section">
+      <h2 class="section-title">📸 Наши Самые Теплые Воспоминания</h2>
+      <div class="memories-grid">
+        <div class="memory-card glass-card">
+          <div class="photo-placeholder">
+            <span>✨ Первое свидание</span>
+          </div>
+          <p class="memory-caption">Тот самый день, когда моя жизнь изменилась навсегда</p>
+        </div>
+        <div class="memory-card glass-card">
+          <div class="photo-placeholder">
+            <span>🌅 Твоя Улыбка</span>
+          </div>
+          <p class="memory-caption">Мой самый любимый вид на всём белом свете</p>
+        </div>
+        <div class="memory-card glass-card">
+          <div class="photo-placeholder">
+            <span>💫 Незабываемые мгновения</span>
+          </div>
+          <p class="memory-caption">Каждая минута рядом с тобой — драгоценный подарок</p>
+        </div>
+        <div class="memory-card glass-card">
+          <div class="photo-placeholder">
+            <span>👩‍❤️‍👨 Вместе Навсегда</span>
+          </div>
+          <p class="memory-caption">Впереди у нас ещё бесконечное множество счастливых дней!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Romantic Footer -->
+    <footer class="footer">
+      <p>Создано с бесконечной любовью и нежностью для <span id="footer-her-name">Моей Любимой</span> ❤️</p>
+      <p class="footer-sub">2025 • Наша Сказка</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
